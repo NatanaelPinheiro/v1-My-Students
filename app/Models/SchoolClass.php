@@ -15,7 +15,8 @@ class SchoolClass extends Model
         'course_coordinator',
     ];
 
-    public function students(){
+    public function students()
+    {
         return $this->hasMany('App\Models\Student');
     }
 }

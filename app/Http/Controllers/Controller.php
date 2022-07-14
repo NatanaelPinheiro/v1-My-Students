@@ -10,12 +10,14 @@ use App\Models\Student;
 use App\Models\SchoolClass;
 use App\Models\SchoolData;
 
-
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests;
+    use DispatchesJobs;
+    use ValidatesRequests;
 
-    public function index(){
+    public function index()
+    {
         $students = Student::orderBy('created_at', 'desc')->get();
         $schoolclasses = SchoolClass::orderBy('created_at', 'desc')->get();
         $schooldata = SchoolData::orderBy('created_at', 'desc')->first()->get();

@@ -12,7 +12,7 @@
 
     <div class="row justify-content-between mb-3">
         <div class="col-md-6 col-sm-12">
-            <a href="{{route('classes.create')}}" class="btn btn-success btn-sm mb-3">
+            <a href="{{route('classes.create')}}" class="btn btn-success btn-sm mb-3 create-data-btn">
                 Cadastrar turmas
             </a>
         </div>
@@ -26,6 +26,7 @@
         </form>
     </div>
 
+    <div class="table-responsive">
     <table class="table table-hover table-striped">
         <thead>
             <tr>
@@ -33,7 +34,7 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Série</th>
                 <th scope="col">Coordenador(a)</th>
-                <th scope="col">Nº Alunos</th>
+                <th scope="col" class="numberOfStudents-col">Nº Alunos</th>
                 <th scope="col">Ações</th>
             </tr>
         </thead>
@@ -42,26 +43,25 @@
             @foreach($schoolclasses as $schoolclass)
             <tr>
                 <th scope="row">{{ $loop->index+1}}</th>
-                <td>
-                    <a href="{{route('classes.show', [$schoolclass->id])}}">
+                <td class="datatotruncate-row">
+                    <a href="{{route('classes.show', [$schoolclass->id])}}" class="d-block text-truncate">
                         {{$schoolclass->class_name}}
                     </a>        
                 </td>
                 <td>{{$schoolclass->grade}}</td>
                 <td>{{$schoolclass->course_coordinator}}</td>
-                <td>{{count($schoolclass->students)}}</td>
+                <td class="numberOfStudents-row ">{{count($schoolclass->students)}}</td>
                 <td>
                     <a href="{{route('classes.edit', [$schoolclass->id])}}" class="btn btn-sm btn-warning">
                         <i class="bi bi-pencil me-1"></i>
-                        Editar
+                        <span class="action-text">Editar</span>
                     </a>
 
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteClassModal" data-schoolclassid="{{$schoolclass->id}}">
                         <i class="bi bi-trash3 me-1"></i>
-                        Deletar
+                        <span class="action-text">Deletar</span>
                     </button> 
-
 
                 </td>
             </tr>
@@ -77,7 +77,7 @@
             @endif
         </tbody>
     </table>
-
+    </div>
     @if(count($schoolclasses) > 0)
     {{$schoolclasses->links()}}
     @endif

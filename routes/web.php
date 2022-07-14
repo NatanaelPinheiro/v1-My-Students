@@ -20,12 +20,13 @@ use App\Http\Controllers\UserController;
 
 
 Route::controller(UserController::class)
-    ->group(function(){
+    ->group(
+        function () {
         Route::get('/login', 'index')->name('login');
         Route::post('/login', 'authenticate')->name('login.auth');
         Route::post('/logout', 'logout')->name('logout');
     }
-);
+    );
 
 Route::get('/', [controller::class, 'index'])->middleware('auth')->name('home');
 
@@ -33,7 +34,8 @@ Route::controller(StudentsController::class)
     ->middleware('auth')
     ->prefix('/students')
     ->as('students.')
-    ->group(function(){
+    ->group(
+        function () {
         Route::get('/', 'index')->name('index');
         Route::get('/show/{id}', 'show')->name('show');
         Route::get('/create', 'create')->name('create');
@@ -42,13 +44,14 @@ Route::controller(StudentsController::class)
         Route::put('/update/{id}', 'update')->name('update');
         Route::delete('/delete', 'destroy')->name('delete');
     }
-);
+    );
 
 Route::controller(SchoolClassesController::class)
     ->middleware('auth')
     ->prefix('/classes')
     ->as('classes.')
-    ->group(function(){
+    ->group(
+        function () {
         Route::get('/', 'index')->name('index');
         Route::get('/show/{id}', 'show')->name('show');
         Route::get('/create', 'create')->name('create');
@@ -57,15 +60,16 @@ Route::controller(SchoolClassesController::class)
         Route::put('/update/{id}', 'update')->name('update');
         Route::delete('/delete', 'destroy')->name('delete');
     }
-);
+    );
 
 Route::controller(SchoolDataController::class)
     ->middleware('auth')
     ->prefix('/schooldata')
     ->as('schooldata.')
-    ->group(function(){
+    ->group(
+        function () {
         Route::get('/', 'index')->name('index');
         Route::get('/edit/{id}', 'edit')->name('edit');
         Route::put('/update/{id}', 'update')->name('update');
     }
-);
+    );

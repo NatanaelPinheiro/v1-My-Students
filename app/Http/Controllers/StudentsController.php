@@ -8,31 +8,35 @@ use App\Models\SchoolClass;
 
 class StudentsController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $search = request('search');
 
-        if($search){
+        if ($search) {
             $students = Student::where('student_name', 'like', '%'.$search.'%')->paginate(10);
-        }else{
+        } else {
             $students = Student::paginate(10);
         }
 
         return view('school/students', compact('students', 'search'));
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $student = Student::findOrFail($id);
         $schoolclasses = SchoolClass::all();
         return view('actions.students.show', compact('student', 'schoolclasses'));
     }
 
-    public function create(){
+    public function create()
+    {
         $schoolclasses = SchoolClass::all();
         return view('actions.students.create', compact('schoolclasses'));
     }
 
-    public function store(Request $request){
-        $student = new Student;
+    public function store(Request $request)
+    {
+        $student = new Student();
 
         $request->validate([
             'student_name' => 'required',
@@ -63,19 +67,21 @@ class StudentsController extends Controller
         $student->student_phone = $request->student_phone;
         $student->emergency_phone = $request->emergency_phone;
 
-        $student->school_class_id = $request->school_class_id; 
+        $student->school_class_id = $request->school_class_id;
 
         $student->save();
         return redirect(route('students.index'))->with('msg', 'estudante adicionado com sucesso!');
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $student = Student::findOrFail($id);
         $schoolclasses = SchoolClass::all();
         return view('actions.students.edit', compact('student', 'schoolclasses'));
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $request->validate([
             'student_name' => 'required',
             'cpf' => 'required',
@@ -98,9 +104,9 @@ class StudentsController extends Controller
         return redirect(route('students.index'))->with('msg', 'estudante editado com sucesso!');
     }
 
-    public function destroy(Request $request){
+    public function destroy(Request $request)
+    {
         Student::findOrFail($request->student_id)->delete();
         return redirect(route('students.index'))->with('msg', 'estudante deletado com sucesso!');
     }
-
 }

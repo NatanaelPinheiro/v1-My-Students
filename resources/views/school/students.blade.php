@@ -11,7 +11,7 @@
 
     <div class="row justify-content-between mb-3">
         <div class="col-md-6 col-sm-12">
-            <a href="{{route('students.create')}}" class="btn btn-success btn-sm mb-3">
+            <a href="{{route('students.create')}}" class="btn btn-success btn-sm mb-3 create-data-btn">
                 Cadastrar estudantes
             </a>
         </div>
@@ -25,6 +25,7 @@
         </form>
     </div>
     
+    <div class="table-responsive">
     <table class="table table-hover table-striped">
         <thead>
             <tr>
@@ -40,8 +41,8 @@
          @foreach($students as $student)
          <tr>
           <th scope="row">{{ $loop->index+1}}</th>
-          <td>
-            <a href="{{route('students.show', [$student->id])}}">
+          <td class="datatotruncate-row">
+            <a href="{{route('students.show', [$student->id])}}" class="d-block text-truncate">
                 {{$student->student_name}}
             </a>
           </td>
@@ -51,13 +52,13 @@
            <a href="{{route('students.edit', [$student->id])}}" 
                class="btn btn-sm btn-warning">
                <i class="bi bi-pencil me-1"></i>
-               Editar
+               <span class="action-text">Editar</span>
            </a>
 
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteStudentModal" data-studentid="{{$student->id}}">
                 <i class="bi bi-trash3 me-1"></i>
-               Deletar
+                <span class="action-text">Deletar</span>
             </button>                            
 </td>
 </tr>
@@ -73,6 +74,7 @@
 @endif
 </tbody>
 </table>
+</div>
 
 @if(count($students) > 0)
 {{$students->links()}}

@@ -9,16 +9,16 @@
 
 
     <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-3 data">
+        <div class="col-sm-6 col-md-6 col-lg-3 data">
             <div class="progress progressA"></div>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-3 data">
+        <div class="col-sm-6 col-md-6 col-lg-3 data">
             <div class="progress progressB"></div>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-3 data">
+        <div class="col-sm-6 col-md-6 col-lg-3 data">
             <div class="progress progressC"></div>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-3 data">
+        <div class="col-sm-6 col-md-6 col-lg-3 data">
             <div class="progress progressD"></div>
         </div>
     </div>
@@ -36,7 +36,7 @@
         </button>
     </div>
 
-    <div class="collapse show" id="classesCollapse">
+    <div class="collapse show table-responsive" id="classesCollapse">
         <table class="table table-hover table-striped">
             <thead>
                 <tr>
@@ -89,7 +89,7 @@
     </button>
 </div>
 
-<div class="collapse show" id="studentsCollapse">
+<div class="collapse show table-responsive" id="studentsCollapse">
     <table class="table table-hover table-striped">
         <thead>
             <tr>
@@ -104,7 +104,7 @@
             @for($i = 0; $i < 3; $i++)
             <tr>
                 <th scope="row">{{ $i + 1}}</th>
-                <td>
+                <td class="text-truncate">
                     <a href="{{route('students.show', [$students[$i]->id])}}">
                         {{$students[$i]->student_name}}
                     </a>

@@ -7,12 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('auth.login');
     }
 
-    public function authenticate(Request $request){
-
+    public function authenticate(Request $request)
+    {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
@@ -26,7 +27,8 @@ class UserController extends Controller
         return back()->with('msg', 'The provided credentials do not match our records.');
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         Auth::logout();
 
         $request->session()->invalidate();

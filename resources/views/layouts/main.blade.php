@@ -71,7 +71,7 @@
 </main>
 
 <footer class="bg-dark text-light d-flex align-center justify-content-center align-items-center">
-	<p>
+	<p class="text-center">
 		Todos os direitos reservados. &copy; {{date('Y')}} MyStudents. 
 		<a href="#header">Voltar ao topo</a>
 	</p>	
