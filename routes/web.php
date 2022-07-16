@@ -22,10 +22,10 @@ use App\Http\Controllers\UserController;
 Route::controller(UserController::class)
     ->group(
         function () {
-        Route::get('/login', 'index')->name('login');
-        Route::post('/login', 'authenticate')->name('login.auth');
-        Route::post('/logout', 'logout')->name('logout');
-    }
+            Route::get('/login', 'index')->name('login');
+            Route::post('/login', 'authenticate')->name('login.auth');
+            Route::post('/logout', 'logout')->name('logout');
+        }
     );
 
 Route::get('/', [controller::class, 'index'])->middleware('auth')->name('home');
@@ -36,14 +36,14 @@ Route::controller(StudentsController::class)
     ->as('students.')
     ->group(
         function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/show/{id}', 'show')->name('show');
-        Route::get('/create', 'create')->name('create');
-        Route::post('/store', 'store')->name('store');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::put('/update/{id}', 'update')->name('update');
-        Route::delete('/delete', 'destroy')->name('delete');
-    }
+            Route::get('/', 'index')->name('index');
+            Route::get('/show/{id}', 'show')->name('show');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::put('/update/{id}', 'update')->name('update');
+            Route::delete('/delete', 'destroy')->name('delete');
+        }
     );
 
 Route::controller(SchoolClassesController::class)
@@ -52,14 +52,14 @@ Route::controller(SchoolClassesController::class)
     ->as('classes.')
     ->group(
         function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/show/{id}', 'show')->name('show');
-        Route::get('/create', 'create')->name('create');
-        Route::post('/store', 'store')->name('store');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::put('/update/{id}', 'update')->name('update');
-        Route::delete('/delete', 'destroy')->name('delete');
-    }
+            Route::get('/', 'index')->name('index');
+            Route::get('/show/{id}', 'show')->name('show');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::put('/update/{id}', 'update')->name('update');
+            Route::delete('/delete', 'destroy')->name('delete');
+        }
     );
 
 Route::controller(SchoolDataController::class)
@@ -68,8 +68,8 @@ Route::controller(SchoolDataController::class)
     ->as('schooldata.')
     ->group(
         function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::put('/update/{id}', 'update')->name('update');
-    }
+            Route::get('/', 'index')->name('index');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::put('/update/{id}', 'update')->name('update');
+        }
     );

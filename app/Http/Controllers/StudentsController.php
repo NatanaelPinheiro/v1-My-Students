@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\SchoolClass;
+use App\Http\Requests\Students\StoreStudentRequest;
+use App\Http\Requests\Students\UpdateStudentRequest;
 
 class StudentsController extends Controller
 {
@@ -25,34 +27,20 @@ class StudentsController extends Controller
     {
         $student = Student::findOrFail($id);
         $schoolclasses = SchoolClass::all();
+
         return view('actions.students.show', compact('student', 'schoolclasses'));
     }
 
     public function create()
     {
         $schoolclasses = SchoolClass::all();
+
         return view('actions.students.create', compact('schoolclasses'));
     }
 
-    public function store(Request $request)
+    public function store(StoreStudentRequest $request)
     {
         $student = new Student();
-
-        $request->validate([
-            'student_name' => 'required',
-            'cpf' => 'required',
-            'birth_date' => 'required',
-            'gender' => 'required',
-            'father_name' => 'required',
-            'mother_name' => 'required',
-            'country' => 'required',
-            'address' => 'required',
-            'city' => 'required',
-            'email_address' => 'required',
-            'student_phone' => 'required',
-            'emergency_phone' => 'required',
-            'school_class_id' => 'required',
-        ]);
 
         $student->student_name = $request->student_name;
         $student->cpf = $request->cpf;
@@ -70,6 +58,7 @@ class StudentsController extends Controller
         $student->school_class_id = $request->school_class_id;
 
         $student->save();
+
         return redirect(route('students.index'))->with('msg', 'estudante adicionado com sucesso!');
     }
 
@@ -77,36 +66,23 @@ class StudentsController extends Controller
     {
         $student = Student::findOrFail($id);
         $schoolclasses = SchoolClass::all();
+
         return view('actions.students.edit', compact('student', 'schoolclasses'));
     }
 
-    public function update(Request $request)
+    public function update(UpdateStudentRequest $request)
     {
-        $request->validate([
-            'student_name' => 'required',
-            'cpf' => 'required',
-            'birth_date' => 'required',
-            'gender' => 'required',
-            'father_name' => 'required',
-            'mother_name' => 'required',
-            'country' => 'required',
-            'address' => 'required',
-            'city' => 'required',
-            'email_address' => 'required',
-            'student_phone' => 'required',
-            'emergency_phone' => 'required',
-            'school_class_id' => 'required',
-        ]);
-
         $student = Student::findOrFail($request->id);
         $student->school_class_id = $request->school_class_id;
-        $student->update($request->all());
+        $student->update($request->validated());
+
         return redirect(route('students.index'))->with('msg', 'estudante editado com sucesso!');
     }
 
     public function destroy(Request $request)
     {
         Student::findOrFail($request->student_id)->delete();
+
         return redirect(route('students.index'))->with('msg', 'estudante deletado com sucesso!');
     }
 }

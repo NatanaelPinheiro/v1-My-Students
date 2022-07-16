@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\SchoolData;
+use App\Http\Requests\SchoolData\UpdateSchoolDataRequest;
 
 class SchoolDataController extends Controller
 {
@@ -19,20 +19,10 @@ class SchoolDataController extends Controller
         return view('actions.school.edit', compact('schooldata'));
     }
 
-    public function update(Request $request)
+    public function update(UpdateSchoolDataRequest $request)
     {
-        $request->validate([
-            'school_name' => 'required',
-            'school_principal' => 'required',
-            'address' => 'required',
-            'city' => 'required',
-            'country' => 'required',
-            'school_phone' => 'required',
-            'national_position' => 'required',
-            'avarage_score' => 'required',
-        ]);
+        SchoolData::findOrFail($request->id)->update($request->validated());
 
-        SchoolData::findOrFail($request->id)->update($request->all());
         return redirect(route('schooldata.index'))->with('msg', 'dados atualizados com sucesso!');
     }
 }
