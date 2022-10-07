@@ -102,7 +102,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form action="{{route('classes.delete', [$schoolclass->id])}}" method="POST">
+            <form action="{{route('classes.delete')}}" method="POST">
                 @csrf
                 @method('DELETE')
 
