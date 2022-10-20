@@ -42,7 +42,7 @@
          <tr>
           <th scope="row">{{ $loop->index+1}}</th>
           <td class="datatotruncate-row">
-            <a href="{{route('students.show', [$student->id])}}" class="d-block text-truncate">
+            <a href="{{route('students.edit', [$student->id])}}" class="d-block text-truncate">
                 {{$student->student_name}}
             </a>
           </td>

@@ -32,3 +32,56 @@ $('#deleteClassModal').on('show.bs.modal', function(event){
 	modal.find('.modal-body #schoolclass_id').val(schoolclass_id)
 
 });
+
+// CIRCLE PROGRESS
+
+
+    function classesCircleProgress(data){
+		new CircleProgress('.progressA', {
+			max: data.length,
+			value: data.length,
+			indeterminateText: '-',
+			textFormat: function(value, max) {
+				return value + ' classes';
+			},
+			animationDuration: 1100,
+		});
+	}
+
+    function studentsCircleProgress(data){
+        new CircleProgress('.progressB', {
+            max: data.length,
+            value: data.length,
+            indeterminateText: '-',
+            textFormat: function(value, max) {
+                return value + ' alunos';
+            },
+            animationDuration: 1200,
+        });
+    }
+
+	function avgScoreCircleProgress(data){
+		new CircleProgress('.progressC', {
+			max: data.avarage_score,
+			value: data.avarage_score,
+			indeterminateText: '-',
+			textFormat: function(value, max) {
+				return 'nota média: ~'+value;
+			},
+			animationDuration: 1300,
+		});
+	}
+
+	function NationalPositionCircleProgress(data){
+		new CircleProgress('.progressD', {
+			max: data.national_position,
+			value: data.national_position,
+			indeterminateText: '-',
+			textFormat: function(value, max) {
+				return value + 'º colocação';
+			},
+			animationDuration: 1400,
+		});
+	}
+
+	

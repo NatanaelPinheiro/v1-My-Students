@@ -40,7 +40,7 @@
 				<input type="text" class="form-control" id="school_phone" name="school_phone" value="{{$schooldata->school_phone}}" disabled>
 			</div>
 	    </div>
-	    <div class="row mb-5">
+	    <!-- <div class="row mb-5"> -->
 			<hr>
 			<h4 class="py-3">Sobre os estudantes</h4>
 

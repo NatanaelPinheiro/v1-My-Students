@@ -6,6 +6,8 @@ use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\SchoolClassesController;
 use App\Http\Controllers\SchoolDataController;
 use App\Http\Controllers\UserController;
+use App\Models\SchoolClass;
+use App\Models\SchoolData;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +30,11 @@ Route::controller(UserController::class)
         }
     );
 
-Route::get('/', [controller::class, 'index'])->middleware('auth')->name('home');
+Route::get('/', [Controller::class, 'index'])->middleware('auth')->name('home');
+
+Route::get('fetch-students', [StudentsController::class, 'fetchStudents'])->middleware('auth');
+Route::get('fetch-classes', [SchoolClassesController::class, 'fetchClasses'])->middleware('auth');
+Route::get('fetch-schooldata', [SchoolDataController::class, 'fetchSchoolData'])->middleware('auth');
 
 Route::controller(StudentsController::class)
     ->middleware('auth')
@@ -37,7 +43,7 @@ Route::controller(StudentsController::class)
     ->group(
         function () {
             Route::get('/', 'index')->name('index');
-            Route::get('/show/{id}', 'show')->name('show');
+            // Route::get('/show/{id}', 'show')->name('show');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
             Route::get('/edit/{id}', 'edit')->name('edit');
@@ -53,7 +59,7 @@ Route::controller(SchoolClassesController::class)
     ->group(
         function () {
             Route::get('/', 'index')->name('index');
-            Route::get('/show/{id}', 'show')->name('show');
+            // Route::get('/show/{id}', 'show')->name('show');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
             Route::get('/edit/{id}', 'edit')->name('edit');

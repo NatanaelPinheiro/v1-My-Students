@@ -22,6 +22,14 @@ class SchoolClassesController extends Controller
         return view('school.schoolclasses', compact('schoolclasses', 'search'));
     }
 
+    public function fetchClasses(){
+        $classes = SchoolClass::all();
+        
+        return response()->json([
+            'classes' => $classes,
+        ]);
+    }
+
     public function show($id)
     {
         $schoolclass = SchoolClass::findOrFail($id);
@@ -33,16 +41,29 @@ class SchoolClassesController extends Controller
         return view('actions.classes.create');
     }
 
-    public function store(StoreSchoolClassRequest $request)
+    public function store(Request $request)
     {
-        $schoolclass = new SchoolClass();
+        // StoreSchoolClassRequest $request
 
-        $schoolclass->class_name = $request->class_name;
-        $schoolclass->grade = $request->grade;
-        $schoolclass->course_coordinator = $request->course_coordinator;
-        $schoolclass->save();
+        if(!empty($request->class_name) && !empty($request->grade) && !empty($request->course_coordinator)){
+            $schoolclass = new SchoolClass();
+            $schoolclass->class_name = $request->class_name;
+            $schoolclass->grade = $request->grade;
+            $schoolclass->course_coordinator = $request->course_coordinator;
 
-        return redirect(route('classes.index'))->with('msg', 'turma criada com sucesso!');
+            $schoolclass->save();
+
+            $response['success'] = true;
+            $response['message'] = 'Turma criada com sucesso!';
+            echo json_encode($response);     
+            return;
+        
+        }else{
+            $response['success'] = false;
+            $response['message'] = 'Erro: verifique todos os campos!';
+            echo json_encode($response);
+            return;
+        }
     }
 
     public function edit($id)

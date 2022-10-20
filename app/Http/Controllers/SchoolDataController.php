@@ -13,6 +13,14 @@ class SchoolDataController extends Controller
         return view('school.schooldata', compact('schooldata'));
     }
 
+    public function fetchSchoolData(){
+        $schooldata = SchoolData::first()->get();
+        
+        return response()->json([
+            'schooldata' => $schooldata,
+        ]);
+    }
+
     public function edit($id)
     {
         $schooldata = SchoolData::findOrFail($id);

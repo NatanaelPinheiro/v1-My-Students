@@ -5,9 +5,8 @@
 <section id="add-classes">
 	<h2 class="section-title">Cadastrar turmas</h2>
 
-	<form method="POST" action="{{route('classes.store')}}" enctype="multipart/form-data">
+	<form name="addClassesForm">
 		@csrf
-		@method('POST')		
 		<div class="row">
 			<div class="mb-3 col-12">
 				<label for="class_name" class="form-label">Nome da turma (curso)</label>
@@ -43,3 +42,37 @@
 </section>
 
 @endsection
+
+@push('scripts')
+
+<script type="text/javascript">
+
+	$(function(){
+		$('form[name="addClassesForm"]').submit(function(event){
+			event.preventDefault();
+
+			$.ajax({
+				url: "{{ route('classes.store') }}",
+				type: "post",
+				data: $(this).serialize(),
+				dataType:  'json',
+				success: function(response){
+					
+                    if(response.success === true){
+						$("input[name='class_name']").val("");
+					    $("input[name='course_coordinator']").val("");
+
+						$(".msg-status").removeClass('msg-error').addClass('msg-success');
+					}else{
+						$(".msg-status").removeClass('msg-success').addClass('msg-error');
+					}
+
+					$(".msg-status").removeClass('d-none').html(response.message) 
+				}
+			});
+		})
+	})
+
+</script>
+
+@endpush

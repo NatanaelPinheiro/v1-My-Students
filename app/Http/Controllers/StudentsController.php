@@ -17,10 +17,19 @@ class StudentsController extends Controller
         if ($search) {
             $students = Student::where('student_name', 'like', '%'.$search.'%')->paginate(10);
         } else {
+
             $students = Student::paginate(10);
         }
 
         return view('school/students', compact('students', 'search'));
+    }
+
+    public function fetchStudents(){
+        $students = Student::all();
+        
+        return response()->json([
+            'students' => $students,
+        ]);
     }
 
     public function show($id)

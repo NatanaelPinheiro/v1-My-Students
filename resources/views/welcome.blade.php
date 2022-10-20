@@ -7,7 +7,6 @@
 <section id="data-overview">
     <h2 class="section-title">Dados gerais</h2>
 
-
     <div class="row">
         <div class="col-sm-6 col-md-6 col-lg-3 data">
             <div class="progress progressA"></div>
@@ -105,7 +104,7 @@
             <tr>
                 <th scope="row">{{ $i + 1}}</th>
                 <td class="text-truncate">
-                    <a href="{{route('students.show', [$students[$i]->id])}}">
+                    <a href="{{route('students.edit', [$students[$i]->id])}}">
                         {{$students[$i]->student_name}}
                     </a>
                 </td>
@@ -135,52 +134,57 @@
 </div>
 </section>
 
+<script>
+
+
+</script>
+
 @endsection
 
 @push('scripts')
 
 <script type="text/javascript">
 
-    new CircleProgress('.progressA', {
-        max: {{count($schoolclasses)}},
-        value: {{count($schoolclasses)}},
-        indeterminateText: '-',
-        textFormat: function(value, max) {
-            return value + ' classes';
-        },
-        animationDuration: 1100,
-        
-    });
 
-    new CircleProgress('.progressB', {
-        max: {{count($students)}},
-        value: {{count($students)}},
-        indeterminateText: '-',
-        textFormat: function(value, max) {
-            return value + ' alunos';
-        },
-        animationDuration: 1200,
-    });
+//   FETCH DATA FOR CIRCLE PROGRESS
 
-    new CircleProgress('.progressC', {
-        max: {{$schooldata[0]->avarage_score}},
-        value: {{$schooldata[0]->avarage_score}},
-        indeterminateText: '-',
-        textFormat: function(value, max) {
-            return 'nota média: ~'+value;
-        },
-        animationDuration: 1300,
-    });
+  function fetchStudents(){
+        $.ajax({
+            type: "GET",
+            url: '/fetch-students',
+            dataType: 'json',
+            success: function(response){
+                studentsCircleProgress(response.students)
+            }
+        })
+    }
 
-    new CircleProgress('.progressD', {
-        max: {{$schooldata[0]->national_position}},
-        value: {{$schooldata[0]->national_position}},
-        indeterminateText: '-',
-        textFormat: function(value, max) {
-            return value + 'º colocação';
-        },
-        animationDuration: 1400,
-    });
+    function fetchClasses() {
+        $.ajax({
+            type: "GET",
+            url: '/fetch-classes',
+            dataType: 'json',
+            success: function(response){
+                classesCircleProgress(response.classes)
+            }
+        })
+    }
+
+    function fetchSchoolData() {
+        $.ajax({
+            type: "GET",
+            url: '/fetch-schooldata',
+            dataType: 'json',
+            success: function(response){
+                avgScoreCircleProgress(response.schooldata[0])
+                NationalPositionCircleProgress(response.schooldata[0])
+            }
+        })
+    }
+
+    fetchStudents()
+    fetchClasses()
+    fetchSchoolData()
 
 
 

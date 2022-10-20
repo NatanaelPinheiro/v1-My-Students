@@ -58,11 +58,16 @@
 	</nav>
 </header>
 
+<!-- status msg -->
+<div class="msg-status d-none d-flex align-items-center justify-content-center">
+</div>
+
 @if(session('msg'))
 <div class="msg">
-	<p class="d-flex align-items-center justify-content-center">{{ session('msg') }}</p>
+    <p class="d-flex align-items-center justify-content-center">{{ session('msg') }}</p>
 </div>
 @endif
+
 
 <main>
 	<div class="container">
